@@ -10,7 +10,7 @@ on:
 
 jobs:
   lint:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
@@ -30,3 +30,6 @@ jobs:
 
       - name: Run linting
         run: npm run lint
+      
+      - name: Building Next 
+        run: npm run build
