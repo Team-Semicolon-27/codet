@@ -20,6 +20,7 @@ export default function RootLayout({
   session, 
 }: Readonly<{
   children: React.ReactNode;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   session: any; 
 }>) {
   return (
