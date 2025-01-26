@@ -1,5 +1,5 @@
 'use client';
-import { signIn } from "next-auth/react";
+import { signIn } from 'next-auth/react';
 
 export async function socialLogin(formData: FormData) {
   const action = formData.get('action');
@@ -9,14 +9,14 @@ export async function socialLogin(formData: FormData) {
     return;
   }
 
-  const result = await signIn(action, { 
-    redirect: false,  
+  console.log(action);
+
+  const result = await signIn(action, {
+    redirect: true,  
     callbackUrl: '/'  
   });
 
   if (result?.error) {
     console.error('Error during social login:', result.error);
-  } else {
-    window.location.href = '/home';
   }
 }

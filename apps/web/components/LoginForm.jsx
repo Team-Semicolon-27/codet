@@ -1,4 +1,4 @@
-'use client'; // Convert the component to client-side
+'use client'; 
 import { socialLogin } from '../app/actions';
 import React from 'react';
 
