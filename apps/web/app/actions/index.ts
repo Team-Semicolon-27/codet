@@ -1,22 +1,6 @@
-'use client';
+'use client'
 import { signIn } from "next-auth/react";
-
-export async function socialLogin(formData: FormData) {
+export async function socialLogin(formData:any) {
   const action = formData.get('action');
-
-  if (typeof action !== 'string') {
-    console.error('Invalid action, expected a string provider name');
-    return;
-  }
-
-  const result = await signIn(action, { 
-    redirect: false,  
-    callbackUrl: '/'  
-  });
-
-  if (result?.error) {
-    console.error('Error during social login:', result.error);
-  } else {
-    window.location.href = '/home';
-  }
-}
+  console.log(action);
+  await signIn(action,{rediectTo:"/"})}
