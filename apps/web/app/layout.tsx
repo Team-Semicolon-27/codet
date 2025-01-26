@@ -2,6 +2,7 @@
 
 import { SessionProvider } from 'next-auth/react';  
 import localFont from 'next/font/local';
+import { Session } from 'next-auth';
 import './globals.css';
 import SignOutButton from '../components/signout';  
 
@@ -20,8 +21,7 @@ export default function RootLayout({
   session, 
 }: Readonly<{
   children: React.ReactNode;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  session: any; 
+  session: Session; 
 }>) {
   return (
     <html lang="en">
