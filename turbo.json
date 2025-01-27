@@ -3,7 +3,8 @@
     "GOOGLE_CLIENT_ID",
     "GOOGLE_CLIENT_SECRET",
     "GITHUB_CLIENT_ID",
-    "GITHUB_CLIENT_SECRET"
+    "GITHUB_CLIENT_SECRET",
+    "DATABASE_URL"
   ],
   "globalDependencies": [
     ".env",
@@ -22,7 +23,8 @@
         "GOOGLE_CLIENT_SECRET",
         "GITHUB_CLIENT_ID",
         "GITHUB_CLIENT_SECRET",
-        "AUTH_SECRET"
+        "AUTH_SECRET",
+        "DATABASE_URL"
       ]
     },
     "lint": {
@@ -32,7 +34,8 @@
         "GOOGLE_CLIENT_SECRET",
         "GITHUB_CLIENT_ID",
         "GITHUB_CLIENT_SECRET",
-        "AUTH_SECRET"
+        "AUTH_SECRET",
+        "DATABASE_URL"
       ]
     },
     "check-types": {
@@ -41,6 +44,18 @@
     "dev": {
       "cache": false,
       "persistent": true
+    },
+    "prisma:migrate": {
+      "cache": false,
+      "persistent": false,
+      "env": ["DATABASE_URL"],
+      "command": "prisma migrate dev"
+    },
+    "prisma:generate": {
+      "cache": false,
+      "persistent": false,
+      "env": ["DATABASE_URL"],
+      "command": "prisma generate"
     }
   }
 }
