@@ -1,8 +1,7 @@
-import { PrismaClient } from '@prisma/client';
+import {db} from "../../../../../lib/db"
 import { getToken } from 'next-auth/jwt';
 import { NextResponse, NextRequest } from 'next/server';
 
-const prisma = new PrismaClient();
 
 export async function POST(req: NextRequest) {
   const token = await getToken({ req, secret: process.env.AUTH_SECRET });
@@ -14,7 +13,7 @@ export async function POST(req: NextRequest) {
   const { email, name } = token;
 
   try {
-    const user = await prisma.user.upsert({
+    const user = await db.user.upsert({
       where: { email: email as string },
       update: { name: name as string },
       create: {
