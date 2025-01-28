@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import { getToken } from 'next-auth/jwt';
-import { NextResponse,NextRequest } from 'next/server';
+import { NextResponse, NextRequest } from 'next/server';
 
 const prisma = new PrismaClient();
 
@@ -11,16 +11,15 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  const { id, email, name } = token;
+  const { email, name } = token;
 
   try {
     const user = await prisma.user.upsert({
-      where: { email: email as string },
-      update: { name: name as string },
+      where: { email: token.email as string },
+      update: { name: token.name as string },
       create: {
-        id: id as string,
-        email: email as string,
-        name: name as string,
+        email: token.email as string,
+        name: token.name as string,
       },
     });
 
