@@ -17,7 +17,7 @@ model Codat {
   codatId          String  @id @default(uuid())
   codatName        String
   codatDescription String
-  codatAuthor      User    @relation("CodatAuthor", fields: [codatId], references: [userId])
+  codatAuthor      User    @relation("CodatAuthor", fields: [codatId], references: [userId],onDelete: Cascade)
   codatCode        String
   codatLanguage    String
   codatIsPublic    Boolean @default(true)
@@ -25,6 +25,12 @@ model Codat {
   codatAIFunc      String
   codatsSavedBy    User[]  @relation("CodatSaved")
   codatTeamsPartOf Teams[] @relation("TeamCodats")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([codatId])
+  @@index([codatIsPublic])
 }
 
 model Teams {
@@ -32,9 +38,16 @@ model Teams {
   teamName       String
   teamMembers    User[]  @relation("TeamMembers")
   teamOwnerId    String
-  teamOwner      User    @relation("TeamOwner", fields: [teamOwnerId], references: [userId])
+  teamOwner      User    @relation("TeamOwner", fields: [teamOwnerId], references: [userId],onDelete: Cascade)
   teamModerators User[]  @relation("TeamModerators")
   teamCodats     Codat[] @relation("TeamCodats")
+
+  @@index([teamId])
+  @@index([teamOwnerId])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
 }
 
 model User {
@@ -48,10 +61,14 @@ model User {
   teamsModeratorOf   Teams[]     @relation("TeamModerators")
   codatsAuthored     Codat[]     @relation("CodatAuthor")
   codatsSaved        Codat[]     @relation("CodatSaved")
+
+  @@index([userId])
 }
 
 model AiSearcher {
   aiId           String @id @default(uuid())
-  attachedUserId User   @relation("AiSearcher", fields: [aiId], references: [userId])
+  attachedUserId User   @relation("AiSearcher", fields: [aiId], references: [userId],onDelete: Cascade)
   textToPassToAI String
+
+  @@index([aiId])
 }
