@@ -19,4 +19,23 @@ export async function socialLogin(formData: FormData) {
   if (result?.error) {
     console.error('Error during social login:', result.error);
   }
+  else if(result?.ok){
+    try{
+      const response = await fetch('/api/save-user',{
+        method:'POST',
+        headers:{
+          'Content-Type':'application/json',
+        }
+      });
+      if(response.ok){
+        console.log('welcome boi');
+      }
+      else{
+        console.log('fail hogya user tu');
+      }
+    }
+    catch(error){
+      console.error('error calling save-userr',error);
+    }
+  }
 }
