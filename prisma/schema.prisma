@@ -13,8 +13,45 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Codat {
+  codatId          String  @id @default(uuid())
+  codatName        String
+  codatDescription String
+  codatAuthor      User    @relation("CodatAuthor", fields: [codatId], references: [userId])
+  codatCode        String
+  codatLanguage    String
+  codatIsPublic    Boolean @default(true)
+  codatAIDesc      String
+  codatAIFunc      String
+  codatsSavedBy    User[]  @relation("CodatSaved")
+  codatTeamsPartOf Teams[] @relation("TeamCodats")
+}
+
+model Teams {
+  teamId         String  @id @default(uuid())
+  teamName       String
+  teamMembers    User[]  @relation("TeamMembers")
+  teamOwnerId    String
+  teamOwner      User    @relation("TeamOwner", fields: [teamOwnerId], references: [userId])
+  teamModerators User[]  @relation("TeamModerators")
+  teamCodats     Codat[] @relation("TeamCodats")
+}
+
 model User {
-  id String @id @default(uuid())
-  email String  @unique
-  name  String?
+  userId             String      @id @default(uuid())
+  email              String      @unique
+  phoneNumber        String?     @unique
+  name               String?     @default("Codat User")
+  attachedAiSearcher AiSearcher? @relation("AiSearcher")
+  teamsPartsOf       Teams[]     @relation("TeamMembers")
+  teamsOwnerOf       Teams[]     @relation("TeamOwner")
+  teamsModeratorOf   Teams[]     @relation("TeamModerators")
+  codatsAuthored     Codat[]     @relation("CodatAuthor")
+  codatsSaved        Codat[]     @relation("CodatSaved")
+}
+
+model AiSearcher {
+  aiId           String @id @default(uuid())
+  attachedUserId User   @relation("AiSearcher", fields: [aiId], references: [userId])
+  textToPassToAI String
 }
