@@ -15,11 +15,11 @@ export async function POST(req: NextRequest) {
 
   try {
     const user = await prisma.user.upsert({
-      where: { email: token.email as string },
-      update: { name: token.name as string },
+      where: { email: email as string },
+      update: { name: name as string },
       create: {
-        email: token.email as string,
-        name: token.name as string,
+        email: email as string,
+        name: name as string,
       },
     });
 
