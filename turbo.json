@@ -44,18 +44,6 @@
     "dev": {
       "cache": false,
       "persistent": true
-    },
-    "prisma:migrate": {
-      "cache": false,
-      "persistent": false,
-      "env": ["DATABASE_URL"],
-      "command": "prisma migrate dev"
-    },
-    "prisma:generate": {
-      "cache": false,
-      "persistent": false,
-      "env": ["DATABASE_URL"],
-      "command": "prisma generate"
     }
   }
 }
